@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeStrips</title>
+    <script>
+        document.documentElement.classList.remove('no-js');
+        document.documentElement.classList.add('js');
+    </script>
+
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Custom CSS -->
+    <style>
+        /* Animazione semplice per il cambio numero */
+        .counter__time span {
+            display: inline-block;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .counter__time span.change {
+            opacity: 0; /* Nasconde il numero durante la transizione */
+        }
+
+        .counter__time span:not(.change) {
+            opacity: 1; /* Mostra il numero dopo la transizione */
+        }
+    </style>
+</head>
+
+<body id="top" class="theme-particles">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+    <div class="s-pagewrap">
+        <!-- Header -->
+        <header class="s-header">
+            <div class="row s-header__content">
+                <div class="s-header__logo">
+                    <a class="logo" href="index1.html">
+                        <img src="images/logo.png" alt="Homepage">
+                        <img src="images/Adobe Express - file.png" alt="Homepage">
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Intro Section -->
+        <section id="intro" class="s-intro">
+            <div id="particles-js" class="s-intro__particles"></div>
+            <div class="row s-intro__content">
+                <div class="column lg-12">
+                    <div class="counter">
+                        <!-- Display days as tens and units -->
+                        <div class="counter__time">
+                            <span id="days-tens">1</span><span id="days-units">5</span>
+                            <span>giorni</span>
+                        </div>
+                        <div class="counter__time">
+                            <span id="hours-tens">0</span><span id="hours-units">2</span>
+                            <span>ore</span>
+                        </div>
+                        <div class="counter__time">
+                            <span id="minutes-tens">0</span><span id="minutes-units">3</span>
+                            <span>minuti</span>
+                        </div>
+                        <div class="counter__time">
+                            <span id="seconds-tens">3</span><span id="seconds-units">3</span>
+                            <span>secondi</span>
+                        </div>
+                    </div>
+
+                    <div class="s-intro__content-bottom">
+                        <h1 class="s-intro__content-title">In attesa del giorno speciale.</h1>
+                        <p>
+                            Il mio sito e pronto per essere scoperto non appenna arrivera il giorno della mia interogazione. 
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="s-intro__scroll">
+                    <a href="index1.html" class="smoothscroll">
+                        <div class="mouse"></div>
+                    </a>
+                    <div class="end-top"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/particles.min.js"></script>
+    <script src="js/particle-settings.js"></script>
+
+    <!-- Countdown Timer Script -->
+    <script>
+        function startCountdown() {
+            var countDownDate = new Date("April 15, 2025 17:00:00").getTime();
+            var x = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                updateCounter("days", days);
+                updateCounter("hours", hours);
+                updateCounter("minutes", minutes);
+                updateCounter("seconds", seconds);
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        }
+
+        function updateCounter(unit, newValue) {
+            var tensId = unit + "-tens";
+            var unitsId = unit + "-units";
+
+            var tens = Math.floor(newValue / 10);
+            var units = newValue % 10;
+
+            updateDigit(tensId, tens);
+            updateDigit(unitsId, units);
+        }
+
+        function updateDigit(id, newValue) {
+            var element = document.getElementById(id);
+            var currentValue = element.innerText;
+
+            if (currentValue !== newValue.toString()) {
+                // Aggiungi la classe "change" per nascondere temporaneamente il numero
+                element.classList.add("change");
+
+                setTimeout(function() {
+                    // Aggiorna il numero e rimuovi la classe "change"
+                    element.innerText = newValue;
+                    element.classList.remove("change");
+                }, 300); // Durata della transizione
+            }
+        }
+
+        window.onload = function() {
+            startCountdown();
+        };
+    </script>
+
+</body>
+</html>
